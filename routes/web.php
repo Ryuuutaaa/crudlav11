@@ -10,6 +10,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get("/product/", [ProductController::class,"index"])->name("products.index");
 Route::get("/product/create", [ProductController::class,"create"])->name("products.create");
 Route::post("/product", [ProductController::class,"store"])->name("products.store");
 
