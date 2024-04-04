@@ -17,18 +17,38 @@
                     <div class="card-header bg-dark">
                         <h3 class="text-white">Create Product</h3>
                     </div>
+
+                    <form action={{route("products.store")}} method="POST">
+                        @csrf
                     <div class="card-body">
                         <div class="mb-3">
                             <label for="" class="form-label h4">Name</label>
-                            <input type="text" name="name" class="form-control form-control-lg" id="" placeholder="name">
+                            <input value="{{old("name")}}"  type="text" name="name" class=" @error("name") is-invalid @enderror form-control form-control-lg" id="" placeholder="name">
+                            @error("name")
+                                <p class="invalid-feedback">{{$message}}</p>
+                            @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="" class="form-label h4">SKU</label>
-                            <input type="text" name="sku" class="form-control form-control-lg" id="" placeholder="sku">
+                            <label for="" class="   form-label h4">SKU</label>
+                            <input value="{{old("sku")}}" type="text" name="sku" class=" @error("sku") is-invalid @enderror form-control form-control-lg" id="" placeholder="sku">
+
+                            @error("sku")
+                                <p class="invalid-feedback">{{$message}}</p>
+                            @enderror
                         </div>
+
+                        <div class="mb-3">
+                            <label for="" class="form-label h4">Price</label>
+                            <input value="{{old("price")}}" type="text" name="price" class="@error("price") is-invalid @enderror form-control form-control-lg" id="" placeholder="price">
+
+                            @error("price")
+                                <p class="invalid-feedback">{{$message}}</p>
+                            @enderror
+                        </div>
+                        
                         <div class="mb-3">
                             <label for="" class="form-label h4">Description</label>
-                            <textarea type="text" name="description" class="form-control" id="" placeholder="description" cols="30" rows="5"></textarea>
+                            <textarea type="text" name="description" class="form-control" id="" placeholder="description" cols="30" rows="5" >{{old("description")}}</textarea>
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label h4">Image</label>
@@ -38,6 +58,7 @@
                             <button class="btn btn-lg btn-primary">Submit</button>
                         </div>
                     </div>
+                </form>
                 </div>
             </div>
         </div>
