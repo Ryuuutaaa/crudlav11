@@ -11,7 +11,10 @@ class ProductController extends Controller
     //show product
     public function index()
     {
-        return view("products.list");
+        $products = Product::orderBy("created_at", "DESC")->get();
+        return view("products.list", [
+            "products" => $products
+        ]);
 
     }
 
@@ -30,6 +33,10 @@ class ProductController extends Controller
             "price" => "required|numeric",
         ];
 
+        if($request->image !=""){
+            $rules["image"] = "image";
+        }
+
         $validator = FacadesValidator::make($request->all(),$rules);
 
         if($validator->fails()){
@@ -43,6 +50,19 @@ class ProductController extends Controller
         $product->description = $request->description;
         $product->save();
 
+        if($request->image != ""){
+            // here we store image
+            $image = $request->image;
+            $ext = $image->getClientOriginalExtension();
+            $imageName = time().'.'.$ext; // unique image name
+
+            // save image to product directory
+            $image->move(public_path("uploads/products"), $imageName);
+
+            // save image to databases
+            $product->description = $imageName;
+            $product->save();
+        }
         return redirect()->route("products.index")->with("success", "Producced added success");
     }
 
