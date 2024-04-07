@@ -23,7 +23,8 @@
                         <h3 class="text-white">Edit Product</h3>
                     </div>
 
-                    <form enctype="multipart/form-data" action={{route("products.store")}} method="POST">
+                    <form enctype="multipart/form-data" action={{route("products.update", $product->id)}} method="POST">
+                        @method("put")
                         @csrf
                     <div class="card-body">
                         <div class="mb-3">
@@ -64,7 +65,7 @@
                             @endif
                         </div>
                         <div class="d-grid">
-                            <button class="btn btn-lg btn-primary">Submit</button>
+                            <button class="btn btn-lg btn-primary">Update</button>
                         </div>
                     </div>
                 </form>
