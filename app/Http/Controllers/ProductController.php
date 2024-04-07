@@ -33,7 +33,7 @@ class ProductController extends Controller
             "price" => "required|numeric",
         ];
 
-        if($request->image !=""){
+        if($request->image != ""){
             $rules["image"] = "image";
         }
 
@@ -60,15 +60,19 @@ class ProductController extends Controller
             $image->move(public_path("uploads/products"), $imageName);
 
             // save image to databases
-            $product->description = $imageName;
+            $product->image = $imageName;
             $product->save();
         }
         return redirect()->route("products.index")->with("success", "Producced added success");
     }
 
     // edit product
-    public function edit()
-    {
+    public function edit($id)
+    {   
+        $product = Product::findOrFail($id);
+        return view("products.edit", [
+            "product" => $product
+        ]);
     }
 
     // update product

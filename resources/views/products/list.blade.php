@@ -33,7 +33,7 @@
                         <table class="table">
                             <tr>
                                 <th>ID</th>
-                                <th></th>
+                                <th>image</th>
                                 <th>Name</th>
                                 <th>Sku</th>
                                 <th>Price</th>
@@ -44,13 +44,17 @@
                                 @foreach ($products as $product )
                                 <tr>
                                     <td>{{ $product->id }}</td>
-                                    <td></td>
+                                    <td>
+                                        @if ($product->image != "")
+                                            <img width="50" src="{{ asset('uploads/products/'.$product->image) }}" alt="">
+                                        @endif
+                                    </td>
                                     <td>{{ $product->name }}</td>
                                     <td>{{ $product->sku }}</td>
-                                    <td>{{ $product->price }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($product->created_at)->format("D M, Y") }}</td>
+                                    <td>${{ $product->price }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($product->created_at)->format("d M, Y") }}</td>
                                     <td>
-                                        <a href="#" class="btn btn-dark">Edit</a>
+                                        <a href="{{route("products.edit", $product->id)}}" class="btn btn-dark">Edit</a>
                                         <a href="#" class="btn btn-danger" >Delete</a>
                                     </td>
                                 </tr>
